@@ -188,7 +188,7 @@ query <- write.stream(edits, "memory", queryName="edits")
 ### Your operations:
 head(sql("SELECT * FROM edits"))
 
-# Once you are finished, stop the query:
+### Once you are finished, stop the query:
 stopQuery(query)
 
 However, I'd strongly recommend using Python.
