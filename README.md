@@ -1,5 +1,5 @@
 # BigData23Assignment3
-Assignment 3: Spark Streaming with text
+## Assignment 3: Spark Streaming with text
 For this assignment, you will construct a predictive model based on a streaming textual data source using Spark Streaming. The data you'll work with consists of edits made on Wikipedia. You'll use the edit date to predict whether the edit was either "safe", "unsafe" or "vandal".
 
 Setting up Spark
@@ -164,10 +164,10 @@ Can I use R?
 
 There are two main Spark R packages being maintained right now: SparkR (the official one) and sparklyr (from the folks at RStudio and fits better with the tidyverse). Both are fine to use, but you'll have to do some setting up in order so R can find your Spark installation. The example below assumes you have the "SparkR" library installed:
 
-# Set up environment variables: do this before loading the the library
-# Otherwise, R will attempt to download spark on its own
-# Make sure to adjust the paths below to match your system
-# HADOOP_HOME is only required on Windows, remove this line for Max/Linux
+### Set up environment variables: do this before loading the the library
+### Otherwise, R will attempt to download spark on its own
+### Make sure to adjust the paths below to match your system
+### HADOOP_HOME is only required on Windows, remove this line for Max/Linux
 if (nchar(Sys.getenv("SPARK_HOME")) < 1) {
   Sys.setenv(SPARK_HOME = "C:\\Users\\Seppe\\Desktop\\spark\\spark-2.4.0-bin-hadoop2.7\\")
   Sys.setenv(HADOOP_HOME = "C:\\Users\\Seppe\\Desktop\\spark\\winutils\\")
@@ -175,17 +175,17 @@ if (nchar(Sys.getenv("SPARK_HOME")) < 1) {
 
 library(SparkR, lib.loc = c(file.path(Sys.getenv("SPARK_HOME"), "R", "lib")))
 
-# Set up the Spark Context:
+### Set up the Spark Context:
 sparkR.session(master = "local[*]")
 
-# Read a structured streaming data frame:
+### Read a structured streaming data frame:
 edits <- read.stream("socket", host = "seppe.net", port = 7778)
 
-# Provide a sink, using "console" will not show anything on your main R console
-# So use memory with a queryName instead:
+### Provide a sink, using "console" will not show anything on your main R console
+### So use memory with a queryName instead:
 query <- write.stream(edits, "memory", queryName="edits")
 
-# Your operations:
+### Your operations:
 head(sql("SELECT * FROM edits"))
 
 # Once you are finished, stop the query:
